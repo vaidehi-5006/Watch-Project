@@ -1,0 +1,96 @@
+/* Preloader Styles (Inspired by thewatch.60fps.fr) */
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: #EBEBEB;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: all;
+  user-select: none;
+}
+
+.loader-overlay.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-inner {
+  position: relative;
+  width: 90vmin;
+  height: 90vmin;
+  max-width: 520px;
+  max-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.loader-bg-circle {
+  fill: none;
+  stroke: #DCDCDC;
+  stroke-width: 2.5;
+}
+
+.loader-progress-circle {
+  fill: none;
+  stroke: #111111;
+  stroke-width: 3.5;
+  stroke-dasharray: 2073;
+  stroke-dashoffset: 2073;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.15s ease-out;
+}
+
+.loader-text {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+}
+
+.brand-sub {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: #888888;
+  text-transform: uppercase;
+}
+
+.loader-status {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #111111;
+}
+
+.loading-word {
+  color: rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.1em;
+  font-size: 12px;
+}
+
+.progress-percent {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111111;
+  min-width: 48px;
+}
