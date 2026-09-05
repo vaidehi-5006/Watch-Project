@@ -1,319 +1,117 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FS 60P - The Timeless Automatic Watch by 60fps</title>
-  <meta name="description" content="An interactive 3D WebGL luxury watch experience featuring real-time mechanical deconstruction, PBR materials, and precision Swiss engineering." />
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@200;300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  
-  <script type="module" crossorigin src="/assets/index-oDov78JB.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-h-1kW3NE.css">
-</head>
-<body class="light-theme">
-  <!-- Preloader (Exact 60fps style) -->
-  <div id="loader" class="loader-overlay">
-    <div class="loader-inner">
-      <svg class="loader-svg" viewBox="0 0 700 700">
-        <circle class="loader-bg-circle" cx="350" cy="350" r="330" />
-        <circle class="loader-progress-circle" cx="350" cy="350" r="330" />
-      </svg>
-      <div class="loader-text">
-        <span class="brand-sub">60FPS</span>
-        <div class="loader-status">
-          <span class="loading-word">Now</span>
-          <span class="progress-percent" id="loader-percent">loading</span>
-        </div>
-      </div>
-    </div>
-  </div>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/png" href="/favicon.png?v=2" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>FS 60P - The Timeless Automatic Watch</title>
 
-  <!-- Header Navigation -->
-  <header class="site-header">
-    <div class="header-left">
-      <a href="#" class="brand-logo">
-        <span class="brand-main">FS 60P</span>
-      </a>
-    </div>
+		<meta property="og:title" content="FS 60P - The Timeless Automatic Watch" />
+		<meta property="og:image" content="/share-image.webp" />
+		<meta property="og:url" content="/" />
+		<meta property="og:type" content="website" />
 
-    <div class="header-center">
-      <span class="movement-badge">AUTOMATIC • 28,800 VPH</span>
-    </div>
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="FS 60P - The Timeless Automatic Watch" />
+		<meta name="twitter:image" content="/share-image.webp" />
 
-    <div class="header-right">
-      <button id="audio-toggle" class="icon-btn" aria-label="Toggle mechanical sound effects" title="Mechanical Sound">
-        <svg class="sound-icon-on" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-        </svg>
-        <svg class="sound-icon-off hidden" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-          <line x1="23" y1="9" x2="17" y2="15"></line>
-          <line x1="17" y1="9" x2="23" y2="15"></line>
-        </svg>
-        <span class="sound-label">SOUND</span>
-      </button>
+		<style>
+			#loader {
+				position: fixed;
+				inset: 0;
+				background: #EBEBEB;
+				z-index: 1000;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				pointer-events: all;
+				transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
+			}
+			#loader.fade-out {
+				opacity: 0;
+				visibility: hidden;
+				pointer-events: none;
+			}
+			#loader svg {
+				position: absolute;
+				inset: -100%;
+				margin: auto;
+				max-width: 95%;
+				max-height: 95%;
+				min-width: 500px;
+			}
+			#loader div {
+				font-size: 11px;
+				color: #000;
+				font-family: 'Inter', sans-serif;
+			}
+			#loader div span {
+				color: #0006;
+			}
+			@media (min-width: 1024px) {
+				#loader svg {
+					max-width: 80%;
+					max-height: 80%;
+				}
+				#loader div {
+					font-size: .8333333333vw;
+				}
+			}
 
-      <a href="#customizer-section" class="btn-primary" id="header-configure-btn">
-        <span>CUSTOMIZE</span>
-      </a>
-    </div>
-  </header>
+			.progress-arc {
+				transform: rotate(-180deg) scale(-1, 1);
+				transform-origin: center;
+				stroke-dasharray: 2168;
+				stroke-dashoffset: 2168;
+				animation: fill-circle 1.2s ease-in-out forwards;
+			}
 
-  <!-- Background Graphic & Giant Watermark Typography (Exact Screenshot Match) -->
-  <div class="hero-bg-layer">
-    <!-- Big Watermark FS 60P text spanning the background -->
-    <div class="giant-watermark-text">FS 60P</div>
+			@keyframes fill-circle {
+				from { stroke-dashoffset: 2168; }
+				to   { stroke-dashoffset: 0; }
+			}
+		</style>
+		<script type="module" crossorigin src="/assets/index-Ck-pEZ8v.js"></script>
+		<link rel="stylesheet" crossorigin href="/assets/index-DSKOTUpi.css">
+		<link rel="stylesheet" crossorigin href="/assets/index-BDKORhKJ.css">
+		<script type="module" crossorigin src="/assets/index-B5Qt9EMX.js"></script>
+	</head>
 
-    <!-- Segmented Dial Graphics with Crosshairs -->
-    <svg class="dial-crosshair-svg" viewBox="0 0 800 800">
-      <!-- Outer circle -->
-      <circle cx="400" cy="400" r="320" fill="none" stroke="rgba(0, 0, 0, 0.12)" stroke-width="1.5" />
-      <!-- Segmented quadrant arc -->
-      <path d="M 400 80 A 320 320 0 0 0 173 173 L 400 400 Z" fill="rgba(0, 0, 0, 0.05)" />
-      <path d="M 173 173 A 320 320 0 0 0 80 400 L 400 400 Z" fill="rgba(0, 0, 0, 0.08)" />
-      <!-- Crosshair lines -->
-      <line x1="400" y1="40" x2="400" y2="760" stroke="rgba(0, 0, 0, 0.15)" stroke-width="1" stroke-dasharray="4 4" />
-      <line x1="40" y1="400" x2="760" y2="400" stroke="rgba(0, 0, 0, 0.15)" stroke-width="1" stroke-dasharray="4 4" />
-      <!-- Diagonal subtle lines -->
-      <line x1="173" y1="173" x2="627" y2="627" stroke="rgba(0, 0, 0, 0.1)" stroke-width="1" />
-      <line x1="173" y1="627" x2="627" y2="173" stroke="rgba(0, 0, 0, 0.1)" stroke-width="1" />
-    </svg>
+	<body>
+		<div id="app">
+			<div id="loader">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 700 700">
+				<path
+					stroke-opacity="1"
+					stroke="#DCDCDC"
+					d="M350 695c190.538 0 345-154.462 345-345S540.538 5 350 5 5 159.462 5 350s154.462 345 345 345Z"
+				/>
+				<path
+					class="progress-arc"
+					stroke-opacity="1"
+					stroke-width="3"
+					stroke="#D3D3D3"
+					d="M350 695c190.538 0 345-154.462 345-345S540.538 5 350 5 5 159.462 5 350s154.462 345 345 345Z"
+				/>
+			</svg>
+			<div><span>Now</span> loading</div>
+			</div>
+			<div id="canvas-wrapper"></div>
+			<div id="root"></div>
+		</div>
 
-    <!-- Bottom Left Specs HUD (MODEL 146GR / Color Silver Steel) -->
-    <div class="hero-hud-metadata">
-      <div class="hud-item-color">
-        <span class="hud-tag">Color</span>
-        <span class="hud-value" id="hud-color-text">Silver Steel</span>
-      </div>
-      <div class="hud-item-model">
-        <span class="hud-tag">MODEL</span>
-        <span class="hud-huge-value">146GR</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Realtime 3D Canvas -->
-  <div id="canvas-container">
-    <canvas id="webgl-canvas"></canvas>
-  </div>
-
-  <!-- Scroll Progress Indicator -->
-  <div class="scroll-progress-container">
-    <div class="scroll-progress-bar" id="scroll-bar"></div>
-    <div class="scroll-index-indicator">
-      <span id="current-section-num">01</span> / 05
-    </div>
-  </div>
-
-  <!-- Main Narrative Scroll Content -->
-  <main id="app-content">
-    
-    <!-- Section 1: Hero -->
-    <section id="hero" class="story-section section-hero">
-      <div class="hero-scroll-prompt">
-        <div class="mouse-icon">
-          <div class="mouse-wheel"></div>
-        </div>
-        <span>SCROLL TO DISASSEMBLE</span>
-      </div>
-    </section>
-
-    <!-- Section 2: Dial & Sapphire -->
-    <section id="dial-section" class="story-section section-dial">
-      <div class="story-card left-card">
-        <span class="section-tag">02 // ARCHITECTURE</span>
-        <h2>SAPPHIRE CRYSTAL &amp; FLUTED DIAL</h2>
-        <p>Double-domed anti-reflective sapphire crystal protecting the high-precision fluted guilloche dial, moonphase complication at 12 o'clock, and date window at 3 o'clock.</p>
-        <ul class="spec-list">
-          <li><strong>Hardness:</strong> 9 Mohs (Sapphire Crystal)</li>
-          <li><strong>Luminescence:</strong> Super-LumiNova BGW9</li>
-          <li><strong>Water Resistance:</strong> 5 ATM (50 Meters)</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Section 3: Exploded Mechanical View -->
-    <section id="exploded-section" class="story-section section-exploded">
-      <div class="story-card center-card">
-        <span class="section-tag">03 // DECONSTRUCTION</span>
-        <h2>EXPLODED CALIBRE ARCHITECTURE</h2>
-        <p>Over 180 micro-engineered components in synchronous harmony. The 8-screw bezel, dial plate, tourbillon bridge, mainplate, and oscillating rotor separate in 3D space.</p>
-      </div>
-
-      <!-- Interactive 3D Part Annotations -->
-      <div class="part-annotation annotation-crystal" id="anno-crystal">
-        <div class="anno-dot"></div>
-        <div class="anno-box">
-          <span class="anno-title">1. Sapphire Crystal</span>
-          <span class="anno-desc">Double-domed anti-glare</span>
-        </div>
-      </div>
-
-      <div class="part-annotation annotation-bezel" id="anno-bezel">
-        <div class="anno-dot"></div>
-        <div class="anno-box">
-          <span class="anno-title">2. 8-Screw Bezel</span>
-          <span class="anno-desc">316L Stainless Steel</span>
-        </div>
-      </div>
-
-      <div class="part-annotation annotation-dial" id="anno-dial">
-        <div class="anno-dot"></div>
-        <div class="anno-box">
-          <span class="anno-title">3. Moonphase Dial</span>
-          <span class="anno-desc">Radial fluted guilloche</span>
-        </div>
-      </div>
-
-      <div class="part-annotation annotation-gears" id="anno-gears">
-        <div class="anno-dot"></div>
-        <div class="anno-box">
-          <span class="anno-title">4. Open Tourbillon</span>
-          <span class="anno-desc">Gold cage &amp; ruby pivot</span>
-        </div>
-      </div>
-
-      <div class="part-annotation annotation-escapement" id="anno-escapement">
-        <div class="anno-dot"></div>
-        <div class="anno-box">
-          <span class="anno-title">5. Mainplate &amp; Rubies</span>
-          <span class="anno-desc">Precision gear train</span>
-        </div>
-      </div>
-
-      <div class="part-annotation annotation-caseback" id="anno-caseback">
-        <div class="anno-dot"></div>
-        <div class="anno-box">
-          <span class="anno-title">6. Oscillating Weight</span>
-          <span class="anno-desc">Automatic winding rotor</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Section 4: Movement & Heartbeat -->
-    <section id="calibre-section" class="story-section section-calibre">
-      <div class="story-card right-card">
-        <span class="section-tag">04 // MECHANICS</span>
-        <h2>THE HEARTBEAT OF PRECISION</h2>
-        <p>Oscillating at 28,800 vibrations per hour (4Hz), the open-heart escapement delivers smooth sweeping chronometric accuracy through the solid engraved caseback.</p>
-        <div class="movement-stats-grid">
-          <div class="stat-item">
-            <span class="stat-number">28,800</span>
-            <span class="stat-label">VPH FREQUENCY</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">42h</span>
-            <span class="stat-label">POWER RESERVE</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">31</span>
-            <span class="stat-label">JEWEL BEARINGS</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">146g</span>
-            <span class="stat-label">TOTAL WEIGHT</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Section 5: Bespoke Customizer & 360 Studio -->
-    <section id="customizer-section" class="story-section section-customizer">
-      <div class="customizer-panel">
-        <div class="customizer-header">
-          <span class="section-tag">05 // BESPOKE ATELIER</span>
-          <h2>CONFIGURE YOUR FS 60P</h2>
-          <p class="customizer-hint">Drag anywhere on the watch to rotate 360° and inspect details.</p>
-        </div>
-
-        <div class="customizer-controls">
-          <!-- Case Material Options -->
-          <div class="control-group">
-            <label class="group-label">CASE FINISH</label>
-            <div class="options-row" id="case-materials">
-              <button class="option-btn active" data-material="silver" title="Silver Steel">
-                <span class="swatch swatch-silver"></span>
-                <span class="opt-name">Silver Steel</span>
-              </button>
-              <button class="option-btn" data-material="rosegold" title="18K Rose Gold">
-                <span class="swatch swatch-rosegold"></span>
-                <span class="opt-name">Rose Gold</span>
-              </button>
-              <button class="option-btn" data-material="obsidian" title="Obsidian DLC">
-                <span class="swatch swatch-obsidian"></span>
-                <span class="opt-name">Stealth DLC</span>
-              </button>
-              <button class="option-btn" data-material="stealth" title="Gunmetal">
-                <span class="swatch swatch-gunmetal"></span>
-                <span class="opt-name">Gunmetal</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Dial Color Options -->
-          <div class="control-group">
-            <label class="group-label">DIAL ACCENTS</label>
-            <div class="options-row" id="dial-materials">
-              <button class="option-btn active" data-dial="classic" title="Classic Fluted">
-                <span class="swatch swatch-rhodium"></span>
-                <span class="opt-name">Classic Black</span>
-              </button>
-              <button class="option-btn" data-dial="midnight" title="Midnight Blue">
-                <span class="swatch swatch-navy"></span>
-                <span class="opt-name">Midnight Blue</span>
-              </button>
-              <button class="option-btn" data-dial="emerald" title="Racing Emerald">
-                <span class="swatch swatch-emerald"></span>
-                <span class="opt-name">Emerald Tint</span>
-              </button>
-              <button class="option-btn" data-dial="skeleton" title="Carbon Dark">
-                <span class="swatch swatch-carbon"></span>
-                <span class="opt-name">Graphite</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Action Buttons -->
-          <div class="customizer-actions">
-            <button id="reset-view-btn" class="btn-secondary">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
-                <path d="M3 3v5h5"></path>
-              </svg>
-              RESET 360°
-            </button>
-            <button id="order-inquiry-btn" class="btn-primary">
-              RESERVE TIMEPICE
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Interactive 3D Rotation Drag Hint in Section 5 -->
-  <div class="drag-360-hint hidden" id="drag-hint">
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
-    </svg>
-    <span>DRAG TO ROTATE 360°</span>
-  </div>
-
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="footer-left">
-      <span>&copy; 2026 60FPS HOROLOGY • ALL RIGHTS RESERVED</span>
-    </div>
-    <div class="footer-right">
-      <span>REAL-TIME 3D WEBGL ENGINE</span>
-    </div>
-  </footer>
-
-</body>
+		<script>
+			function dismissLoader() {
+				const loader = document.getElementById('loader');
+				if (loader && !loader.classList.contains('fade-out')) {
+					loader.classList.add('fade-out');
+					setTimeout(() => {
+						if (loader && loader.parentNode) loader.remove();
+					}, 800);
+				}
+			}
+			window.addEventListener('load', () => setTimeout(dismissLoader, 1000));
+			setTimeout(dismissLoader, 2500);
+		</script>
+	</body>
 </html>

@@ -2,35 +2,20 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<link rel="icon" type="image/x-icon" href="/favicon.png" />
+		<link rel="icon" type="image/png" href="/favicon.png?v=2" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>FS 60P - The timeless automatic watch by 60fps</title>
+		<title>FS 60P - The Timeless Automatic Watch</title>
 
-		<meta property="og:title" content="FS 60P - The timeless automatic watch by 60fps" />
+		<meta property="og:title" content="FS 60P - The Timeless Automatic Watch" />
 		<meta property="og:image" content="/share-image.webp" />
-		<meta property="og:url" content="https://thewatch.60fps.fr" />
+		<meta property="og:url" content="/" />
 		<meta property="og:type" content="website" />
 
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content="FS 60P - The timeless automatic watch by 60fps" />
+		<meta name="twitter:title" content="FS 60P - The Timeless Automatic Watch" />
 		<meta name="twitter:image" content="/share-image.webp" />
 
 		<style>
-			/* ===== CRITICAL LAYOUT FIX ===== */
-			html, body {
-				overflow: hidden;
-				width: 100%;
-				height: 100%;
-				margin: 0;
-				padding: 0;
-			}
-			#app {
-				overflow: hidden;
-				width: 100%;
-				height: 100%;
-				position: relative;
-			}
-
 			#loader {
 				position: fixed;
 				inset: 0;
@@ -40,7 +25,12 @@
 				align-items: center;
 				justify-content: center;
 				pointer-events: all;
-				overflow: hidden; /* Clip the oversized SVG so circle stays within screen */
+				transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
+			}
+			#loader.fade-out {
+				opacity: 0;
+				visibility: hidden;
+				pointer-events: none;
 			}
 			#loader svg {
 				position: absolute;
@@ -51,8 +41,6 @@
 				min-width: 500px;
 			}
 			#loader div {
-				position: relative;
-				z-index: 2;
 				font-size: 11px;
 				color: #000;
 				font-family: 'Inter', sans-serif;
@@ -72,27 +60,20 @@
 
 			.progress-arc {
 				transform: rotate(-180deg) scale(-1, 1);
-  				transform-origin: center;
+				transform-origin: center;
 				stroke-dasharray: 2168;
 				stroke-dashoffset: 2168;
 				animation: fill-circle 1.2s ease-in-out forwards;
-				}
+			}
 
-				@keyframes fill-circle {
+			@keyframes fill-circle {
 				from { stroke-dashoffset: 2168; }
 				to   { stroke-dashoffset: 0; }
 			}
-
-			/* Prevent any #root section content from overflowing viewport */
-			#root {
-				overflow: hidden;
-				width: 100%;
-				height: 100%;
-			}
-
 		</style>
 		<script type="module" crossorigin src="/assets/index-Ck-pEZ8v.js"></script>
 		<link rel="stylesheet" crossorigin href="/assets/index-DSKOTUpi.css">
+		<link rel="stylesheet" crossorigin href="/assets/index-BDKORhKJ.css">
 	</head>
 
 	<body>
@@ -117,5 +98,19 @@
 			<div id="canvas-wrapper"></div>
 			<div id="root"></div>
 		</div>
-</body>
+
+		<script>
+			function dismissLoader() {
+				const loader = document.getElementById('loader');
+				if (loader && !loader.classList.contains('fade-out')) {
+					loader.classList.add('fade-out');
+					setTimeout(() => {
+						if (loader && loader.parentNode) loader.remove();
+					}, 800);
+				}
+			}
+			window.addEventListener('load', () => setTimeout(dismissLoader, 1000));
+			setTimeout(dismissLoader, 2500);
+		</script>
+	</body>
 </html>
