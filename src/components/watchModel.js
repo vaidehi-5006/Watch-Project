@@ -10,35 +10,35 @@ export class WatchModel {
     this.modelRoot = null;
     this.explodedProgress = 0;
 
-    // Shared high-quality PBR materials
+    // Shared high-quality PBR materials with ultra-high specular reflection
     this.sharedMaterials = {
       stainlessSteelBrushed: new THREE.MeshStandardMaterial({
-        color: 0xdde2e8,
-        metalness: 0.96,
-        roughness: 0.2,
-        envMapIntensity: 2.5,
+        color: 0xf5f7fa,
+        metalness: 0.98,
+        roughness: 0.08,
+        envMapIntensity: 4.2,
         name: 'shared_steel_brushed'
       }),
       stainlessSteelPolished: new THREE.MeshStandardMaterial({
         color: 0xffffff,
-        metalness: 0.98,
-        roughness: 0.05,
-        envMapIntensity: 3.2,
+        metalness: 1.0,
+        roughness: 0.02,
+        envMapIntensity: 5.0,
         name: 'shared_steel_polished'
       }),
       goldTourbillon: new THREE.MeshStandardMaterial({
-        color: 0xebb438,
-        metalness: 0.96,
-        roughness: 0.18,
-        envMapIntensity: 2.2,
+        color: 0xffc845,
+        metalness: 0.98,
+        roughness: 0.06,
+        envMapIntensity: 4.2,
         name: 'shared_gold'
       }),
       rubyJewel: new THREE.MeshPhysicalMaterial({
-        color: 0xd90429,
-        transmission: 0.8,
+        color: 0xef0033,
+        transmission: 0.85,
         transparent: true,
         opacity: 0.95,
-        roughness: 0.05,
+        roughness: 0.02,
         ior: 1.76,
         name: 'shared_ruby'
       }),
@@ -46,17 +46,19 @@ export class WatchModel {
         color: 0xffffff,
         transmission: 0.96,
         transparent: true,
-        opacity: 0.22,
+        opacity: 0.35,
         roughness: 0.01,
         ior: 1.77,
+        envMapIntensity: 3.5,
+        reflectivity: 0.9,
         depthWrite: false,
         name: 'shared_glass'
       }),
       blackDialBase: new THREE.MeshStandardMaterial({
-        color: 0x0a0b0e,
-        metalness: 0.85,
-        roughness: 0.28,
-        envMapIntensity: 1.8,
+        color: 0x0c0e12,
+        metalness: 0.92,
+        roughness: 0.12,
+        envMapIntensity: 3.0,
         name: 'shared_black_dial'
       })
     };
@@ -249,10 +251,15 @@ export class WatchModel {
     if (!this.isLoaded) return;
 
     const colors = {
-      silver: { color: 0xdde2e8, metalness: 0.96, roughness: 0.2 },
-      rosegold: { color: 0xe8ad98, metalness: 0.95, roughness: 0.18 },
-      obsidian: { color: 0x18191d, metalness: 0.88, roughness: 0.28 },
-      stealth: { color: 0x3d434e, metalness: 0.92, roughness: 0.22 }
+      silver: { color: 0xffffff, metalness: 0.99, roughness: 0.03, envMapIntensity: 4.8 },
+      steel: { color: 0xffffff, metalness: 0.99, roughness: 0.03, envMapIntensity: 4.8 },
+      gold: { color: 0xffce48, metalness: 0.98, roughness: 0.05, envMapIntensity: 4.4 },
+      yellowgold: { color: 0xffce48, metalness: 0.98, roughness: 0.05, envMapIntensity: 4.4 },
+      rosegold: { color: 0xf5b29c, metalness: 0.98, roughness: 0.05, envMapIntensity: 4.4 },
+      rose: { color: 0xf5b29c, metalness: 0.98, roughness: 0.05, envMapIntensity: 4.4 },
+      obsidian: { color: 0x363942, metalness: 0.98, roughness: 0.04, envMapIntensity: 4.5 },
+      midnight: { color: 0x363942, metalness: 0.98, roughness: 0.04, envMapIntensity: 4.5 },
+      stealth: { color: 0x444854, metalness: 0.98, roughness: 0.05, envMapIntensity: 4.2 }
     };
 
     const conf = colors[materialKey] || colors.silver;
@@ -272,6 +279,7 @@ export class WatchModel {
         mesh.material.color.setHex(conf.color);
         mesh.material.metalness = conf.metalness;
         mesh.material.roughness = conf.roughness;
+        mesh.material.envMapIntensity = conf.envMapIntensity || 3.0;
         mesh.material.needsUpdate = true;
       }
     });
@@ -279,10 +287,11 @@ export class WatchModel {
     const hudColor = document.getElementById('hud-color-text');
     if (hudColor) {
       hudColor.textContent = 
-        materialKey === 'silver' ? 'Silver Steel' :
-        materialKey === 'rosegold' ? '18K Rose Gold' :
-        materialKey === 'obsidian' ? 'Obsidian DLC' :
-        materialKey === 'stealth' ? 'Gunmetal Steel' : 'Silver Steel';
+        (materialKey === 'silver' || materialKey === 'steel') ? 'Pure Steel' :
+        (materialKey === 'gold' || materialKey === 'yellowgold') ? '18K Yellow Gold' :
+        (materialKey === 'rosegold' || materialKey === 'rose') ? '18K Rose Gold' :
+        (materialKey === 'obsidian' || materialKey === 'midnight') ? 'Midnight DLC' :
+        materialKey === 'stealth' ? 'Gunmetal Steel' : 'Pure Steel';
     }
   }
 
