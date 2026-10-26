@@ -357,9 +357,9 @@
 
 .hero-split-container {
   width: 100%;
-  height: 480px;
-  min-height: 460px;
-  max-height: 500px;
+  min-height: 640px;
+  height: calc(100vh - 104px);
+  max-height: 920px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: stretch;
@@ -371,14 +371,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  padding: 24px 64px 24px 32px;
+  padding: 40px 64px 40px 32px;
   background: #FFFFFF;
   position: relative;
   z-index: 2;
 }
 
 .hero-editorial-wrapper {
-  max-width: 480px;
+  max-width: 500px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -389,12 +389,12 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-size: 9.5px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.2em;
   color: #777777;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .hero-heritage-tag .heritage-cross {
@@ -406,48 +406,48 @@
 .hero-edition-tag {
   display: inline-flex;
   align-items: center;
-  padding: 4px 12px;
+  padding: 5px 14px;
   border-radius: 999px;
   background: #F0F0F4;
   color: #444444;
-  font-size: 9.5px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .hero-editorial-title {
   font-family: 'Nekst', sans-serif;
-  font-size: clamp(26px, 3vw, 42px);
+  font-size: clamp(32px, 3.4vw, 48px);
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #0A0A0A;
-  line-height: 1.05;
-  margin-bottom: 10px;
+  line-height: 1.08;
+  margin-bottom: 14px;
 }
 
 .hero-editorial-desc {
-  font-size: 12.5px;
-  line-height: 1.55;
+  font-size: 13.5px;
+  line-height: 1.6;
   color: #555555;
   letter-spacing: 0.02em;
-  max-width: 460px;
-  margin-bottom: 16px;
+  max-width: 480px;
+  margin-bottom: 22px;
 }
 
 /* Horlogerie Metrics Strip */
 .hero-metrics-strip {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 8px 16px;
+  gap: 16px;
+  padding: 10px 20px;
   background: #F9F9FB;
   border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 10px;
-  margin-bottom: 16px;
+  border-radius: 12px;
+  margin-bottom: 24px;
   width: fit-content;
 }
 
@@ -581,7 +581,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 20px;
+  padding: 28px 36px;
 }
 
 .hero-fullhalf-img {
@@ -912,32 +912,35 @@
 
 .card-visual-stage {
   position: relative;
-  height: 245px;
-  min-height: 245px;
-  max-height: 245px;
+  height: 290px;
+  min-height: 290px;
+  max-height: 290px;
   flex-shrink: 0;
   background: radial-gradient(circle at center, #FFFFFF 0%, #F4F4F7 85%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 22px 16px 36px;
+  padding: 16px 14px 34px;
   overflow: hidden;
 }
 
 .card-display-image {
-  height: 150px;
-  max-height: 150px;
+  height: 225px;
+  max-height: 225px;
   width: auto;
-  max-width: 80%;
+  max-width: 90%;
   object-fit: contain;
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.12));
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 8px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.1));
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
   display: block;
 }
 
 .store-watch-card:hover .card-display-image {
-  transform: scale(1.04);
+  transform: scale(1.05);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.24);
 }
 
 /* Card Navigation Chevrons */
